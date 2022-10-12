@@ -54,6 +54,12 @@ public class VideoDaoImpl implements VideoDao{
 			con.close();
 		}
 	}// end of info
+	/*
+	 * 메소드명 : selectVideo
+	 * 인자 : 검색할 제목 , 감독
+	 * 리턴 값 :제목이나 감독 검색에 따른 비디오 정보
+	 * 역할 : 사용자가 입력한 제목이나 감독이름을  받아서 해당하는 영화정보 리턴 
+	 */
 
 	public ArrayList selectVideo(String text,String jemok) throws Exception{
 		ArrayList data = new ArrayList();
@@ -108,6 +114,7 @@ public class VideoDaoImpl implements VideoDao{
 		return data;
 
 	}// selectvideo 종료
+
 	/*
 	public void delete(VideoVO vo) throws Exception{
 		// 2. Connection 연결객체 얻어오기

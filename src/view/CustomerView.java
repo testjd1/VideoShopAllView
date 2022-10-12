@@ -101,7 +101,8 @@ public class CustomerView extends JPanel
 
 
 	}
-
+	
+	// 화면 초기화 해주는 메소드 생성
 	void clearText() {
 		tfCustName.setText(null);
 		tfCustTel.setText(null);

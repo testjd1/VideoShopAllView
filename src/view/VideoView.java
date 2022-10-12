@@ -161,7 +161,7 @@ public class VideoView extends JPanel
 
 
 
-	// 
+	// 초기화 해주는 메소드 생성
 	void clearText() {
 		tfVideoNum.setText(null);
 		tfVideoTitle.setText(null);
