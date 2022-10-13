@@ -25,7 +25,12 @@ public class RentDaoImpl implements RentDao {
 		Class.forName(DRIVER);
 		System.out.println("드라이버 로딩 성공");			
 	}
-
+	/*
+	 * 메소드명 : rentVideo
+	 * 인자 : 검색할 전화번호, 비디오 번호
+	 * 리턴 값 : 대여 여부 확인
+	 * 역할 : 아직 반납 안했으면 대여 못하고 , 반납했으면 대여 가능 
+	 */
 
 	public void rentVideo(String tel, int vnum) throws Exception{
 
@@ -40,7 +45,7 @@ public class RentDaoImpl implements RentDao {
 			ps.setInt(1, vnum);// 값 입력
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-
+		
 			String yn = rs.getString("ReturnYn");
 			System.out.println(yn);
 			if(yn.equals("Y")) {
@@ -68,7 +73,12 @@ public class RentDaoImpl implements RentDao {
 			con.close();
 		}
 	}
-
+	/*
+	 * 메소드명 : returnVideo
+	 * 인자 : 비디오 번호
+	 * 리턴 값 : 반납여부
+	 * 역할 : 반납하면 반납여부칸 N -> Y로 변경 
+	 */
 
 	public void returnVideo(int vnum) throws Exception{
 		// 2. Connection 연결객체 얻어오기
@@ -94,6 +104,13 @@ public class RentDaoImpl implements RentDao {
 			con.close();
 		}
 	}
+	/*
+	 * 메소드명 : searchName
+	 * 인자 : 검색할 전화번호
+	 * 리턴 값 : 전화번호 검색에 따른 고객 이름 출력
+	 * 역할 : 사용자가 입력한 전화번호를 받아서 해당하는 고객 이름 리턴 
+	 */
+	
 	public String searchName(String tel) throws Exception{
 		// 2. Connection 연결객체 얻어오기
 		Connection con = null;								// 전역변수 선언
@@ -125,7 +142,10 @@ public class RentDaoImpl implements RentDao {
 		return name;
 	}
 	/*
-	 * 미납목록 검색
+	 * 메소드명 : overdue
+	 * 인자 : 미납여부 확인
+	 * 리턴 값 : 반납 안한 정보들 
+	 * 역할 : 아직 반납 안한 정보들 출력 
 	 */
 	@Override
 	public ArrayList overdue() throws Exception {
