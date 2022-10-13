@@ -97,8 +97,15 @@ public class VideoView extends JPanel
 					int col = 0;	// 검색한 열을 클릭했을 때 클릭한 열의 비디오번호
 					// Object -> Integer -> int 형변환
 					int vNum = ((Integer)tableVideo.getValueAt(row, col)).intValue();
-					JOptionPane.showMessageDialog(null, vNum);
-
+					// JOptionPane.showMessageDialog(null, vNum);
+					VideoVO vo = model.selectByVnum(vNum);
+					//화면에 비디오 정보 각각 출력
+					comVideoJanre.setSelectedItem(vo.getGenre());
+					tfVideoNum.setText(String.valueOf(vo.getVideoNo()));
+					tfVideoTitle.setText(vo.getTitle());
+					tfVideoDirector.setText(vo.getDirector());
+					tfVideoActor.setText(vo.getActor());
+					taVideoContent.setText(vo.getExpl());
 
 				}catch(Exception ex){
 					System.out.println("실패 : "+ ex.getMessage());
@@ -128,6 +135,10 @@ public class VideoView extends JPanel
 		}
 	}
 
+
+
+
+
 	// 입고 클릭시  - 비디오 정보 등록
 	public void registVideo(){
 		//	 JOptionPane.showMessageDialog(null, "입고");
@@ -148,7 +159,7 @@ public class VideoView extends JPanel
 		vo.setActor(actor);
 		vo.setExpl(content);
 
-		// 3. insetvo 호출
+		// 3. insertvo 호출
 		try {
 			model.insertVideo(vo, count);
 			JOptionPane.showMessageDialog(null, "입고했음");
@@ -161,7 +172,7 @@ public class VideoView extends JPanel
 
 
 
-	// 초기화 해주는 메소드 생성
+	// 
 	void clearText() {
 		tfVideoNum.setText(null);
 		tfVideoTitle.setText(null);
@@ -183,40 +194,77 @@ public class VideoView extends JPanel
 
 	// 수정 클릭시 - 비디오 정보 수정
 	public void modifyVideo(){
-		JOptionPane.showMessageDialog(null, "수정");
+		//		 JOptionPane.showMessageDialog(null, "입고");
+		// 1. 화면의 사용자 입력 값 얻어오기
+		String vno = tfVideoNum.getText();
+		String janre = (String) comVideoJanre.getSelectedItem();
+		String title = tfVideoTitle.getText();
+		String director = tfVideoDirector.getText();
+		String actor = tfVideoActor.getText();
+		String content = taVideoContent.getText();
+
+
+		// 2. 1번의 값 Videovo에 지정
+		VideoVO vo= new VideoVO();
+		vo.setVideoNo(vno);
+		vo.setGenre(janre);
+		vo.setTitle(title);
+		vo.setDirector(director);
+		vo.setActor(actor);
+		vo.setExpl(content);
+
+		// 3. insertvo 호출
+		try {
+			model.modifyVideo(vo);
+			JOptionPane.showMessageDialog(null, "수정했음");
+			clearText();
+		}catch(Exception e ) {
+			System.out.println("비디오 입고 실패  :" + e.getMessage());
+		}
+
+
+
+
 	}
 
 	// 삭제 클릭시 - 비디오 정보 삭제
-	public void deleteVideo(){
-		/*
-		// (1) 입력한 전화번호 값을 얻어오기
-				String title = tfVideoTitle.getText();
-				// (2) 모델단에  deleteByTel() 호출
-				try {
-					model.delete(title);
-					// (3) 화면 지우기
-					clearText();
-				}catch(SQLException e) {
-					ta.setText("삭제 실패 : " + e.getMessage());
-				}
-		JOptionPane.showMessageDialog(null, "삭제 완료");
-		 */
-	}
+	public void deleteVideo() {
 
+	      // (1) 입력한 비디호번호 값을 얻어오기
+	      
+	       //int vNum = (Integer.parseInt((tfVideoNum.getText().trim())));
+	       int vNum = Integer.parseInt(tfVideoNum.getText());
+	       // String vno=tfVideoNum.getText(); 
+	      
+	      // (2) 모델단에 delete() 호출
+	            try {
+	               model.delete(vNum);
+	               JOptionPane.showMessageDialog(null, "삭제");
+	               // (3) 화면 지우고
+	               clearText();
+	            } catch (Exception e) {
+	            System.out.println("삭제 실패 :" + e.getMessage());
+	            }
+	      
+	   }
 	// 비디오현황검색
 	public void searchVideo(){	
 		try {
+			// 사용자가 선택하거나 입력한 값 얻어오기
+			// int idx = comVideoSearch.getSelectedIndex(); 콤보박스값 위에서부터 0 ~ 순으로 받기 
 			String jemok = (String) comVideoSearch.getSelectedItem();
 			String text = tfVideoSearch.getText();
-//			String director = tfVideoSearch.getText();
+			//			String director = tfVideoSearch.getText();
 			tbModelVideo.data = model.selectVideo(text, jemok);
 			tbModelVideo.fireTableDataChanged();// 모델쪽에서 데이터 변경을 뷰쪽으로 신호
+
+
+
 		}catch(Exception e) {
 			System.out.println("검색 실패  :" + e.getMessage());
 			e.printStackTrace();
 		}
 	}
-
 
 	//  화면설계 메소드
 	public void addLayout(){
