@@ -109,7 +109,7 @@ public class RentView extends JPanel
 		p_north_2.add(tfReturnVideoNum);
 		p_north_2.add(bReturn);
 		
-		//
+		
 		setLayout(new BorderLayout());
 		add(p_north, BorderLayout.NORTH);
 		add(new JScrollPane(tableRecentList),BorderLayout.CENTER);

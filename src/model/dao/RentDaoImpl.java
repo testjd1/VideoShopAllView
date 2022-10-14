@@ -72,7 +72,9 @@ public class RentDaoImpl implements RentDao {
 			ps.close();
 			con.close();
 		}
-	}
+	}	// end of rentVideo
+	
+	
 	/*
 	 * 메소드명 : returnVideo
 	 * 인자 : 비디오 번호
@@ -103,7 +105,8 @@ public class RentDaoImpl implements RentDao {
 			ps.close();
 			con.close();
 		}
-	}
+	}	// end of returnVideo
+	
 	/*
 	 * 메소드명 : searchName
 	 * 인자 : 검색할 전화번호
@@ -140,7 +143,9 @@ public class RentDaoImpl implements RentDao {
 
 		}
 		return name;
-	}
+	}	//end of searchName
+	
+
 	/*
 	 * 메소드명 : overdue
 	 * 인자 : 미납여부 확인
@@ -187,7 +192,7 @@ public class RentDaoImpl implements RentDao {
 			ps.close();
 		}   
 		return data;
-	}
+	}	// end of ovderdue
 
 
 }

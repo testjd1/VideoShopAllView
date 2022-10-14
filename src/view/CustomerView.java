@@ -101,6 +101,7 @@ public class CustomerView extends JPanel
 
 
 	}
+	// 초기화
 
 	void clearText() {
 		tfCustName.setText(null);

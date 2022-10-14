@@ -172,7 +172,7 @@ public class VideoView extends JPanel
 
 
 
-	// 
+	// 초기화
 	void clearText() {
 		tfVideoNum.setText(null);
 		tfVideoTitle.setText(null);
@@ -184,7 +184,8 @@ public class VideoView extends JPanel
 
 
 	}
-
+	
+	// 입력못하게 함
 	public void initStyle(){   
 		tfVideoNum.setEditable(false); // 입력하지 못하게 만듬.
 		tfInsertCount.setEditable(false);
